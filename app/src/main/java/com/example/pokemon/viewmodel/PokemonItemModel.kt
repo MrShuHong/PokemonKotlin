@@ -1,7 +1,9 @@
 package com.example.pokemon.viewmodel
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
+import kotlinx.android.parcel.Parcelize
 
 
 /**
@@ -9,11 +11,12 @@ import androidx.recyclerview.widget.DiffUtil
  * Date: 2020/8/18 17:27
  * Description:
  */
-class PokemonItemModel(
+@Parcelize
+data class PokemonItemModel(
     var id: String = "",
     val name: String,
     val url: String
-) : ViewModel() {
+) : ViewModel(), Parcelable {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<PokemonItemModel>() {
             override fun areItemsTheSame(
