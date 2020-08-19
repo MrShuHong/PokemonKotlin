@@ -1,5 +1,6 @@
 package com.example.pokemon.ui.binding
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast

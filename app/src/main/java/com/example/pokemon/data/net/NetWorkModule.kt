@@ -22,7 +22,8 @@ object NetWorkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://www.wanandroid.com/")
+            .baseUrl("https://pokeapi.co/api/v2/")
+            //.baseUrl("https://www.wanandroid.com/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -32,14 +33,14 @@ object NetWorkModule {
     fun providePokemonService(): PokemonService {
         var okHttpClient = provideOkHttpClient()
         var provideRetrofit = provideRetrofit(okHttpClient)
-        var retrofit = Retrofit.Builder()
+        /*var retrofit = Retrofit.Builder()
             .client(OkHttpClient.Builder()
                 .build())
             .baseUrl("https://www.wanandroid.com/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            .build()*/
 
-        return retrofit.create(PokemonService::class.java)
+        return provideRetrofit.create(PokemonService::class.java)
     }
 }

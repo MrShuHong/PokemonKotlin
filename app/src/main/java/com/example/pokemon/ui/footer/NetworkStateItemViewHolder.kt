@@ -25,8 +25,8 @@ class NetworkStateItemViewHolder(view: View, private val retryCallback: () -> Un
                 retryCallback()
             }
             //!(data as? LoadState.Error)?.error?.message.isNullOrBlank()
-            errorMsg.isVisible = !(data as LoadState.Error)?.error?.message.isNullOrBlank()
-            errorMsg.text = (data as LoadState.Error)?.error?.message
+            errorMsg.isVisible = !(data as? LoadState.Error)?.error?.message.isNullOrBlank()
+            errorMsg.text = (data as? LoadState.Error)?.error?.message
             executePendingBindings()
         }
     }

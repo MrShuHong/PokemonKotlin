@@ -41,14 +41,9 @@ interface PokemonService {
     @GET("article/list/{page}/json")
     suspend fun fetchArticleList(@Path("page") page:Int): NetResult<NetData<Article>>
 
-    @GET("article/list/{page}/json")
-    suspend fun fetchArticleList2(@Path("page") page:Int): ResponseBody
-
-    @GET("article/list/{page}/json")
-    fun fetchArticleList3(@Path("page") page:Int): Observable<ResponseBody>
 
     @GET("pokemon")
-    fun fetchPokemonList(
+    suspend fun fetchPokemonList(
         @Query("limit") limit: Int = 20,
         @Query("offset") offset: Int = 0
     ): ListingResponse

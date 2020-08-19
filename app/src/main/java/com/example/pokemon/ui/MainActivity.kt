@@ -50,16 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenCreated {
             mPokemonAdapter.loadStateFlow.collectLatest { state ->
+                Log.d("dsh", "onCreate: state = "+ state)
                 swipe_refresh.isRefreshing = state.refresh is LoadState.Loading
             }
         }
 
-        var subscribe = NetWorkModule.providePokemonService()
-            .fetchArticleList3(0)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(Consumer {
-                Log.d("dsh","NetWorkModule"+it.string())
-            })
     }
 }

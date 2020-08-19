@@ -27,7 +27,6 @@ class PokemonRepositoryImpl(
 
     override fun featchPokemonList(): Flow<PagingData<PokemonItemModel>> {
 
-        Log.d("dsh","featchPokemonList")
         var map = Pager(config = pagingConfig) {
             PokemonListDataSource()
         }.flow.map { pagingData ->
@@ -37,13 +36,6 @@ class PokemonRepositoryImpl(
         }
 
         return map
-        /*return Pager(
-            config = pagingConfig,
-            remoteMediator = PokemonRemoteMediator(api)
-        ).flow.map {
-            it.map {
-                PokemonItemModel(name = it.name, url = it.url)
-            }
-        }*/
+
     }
 }
