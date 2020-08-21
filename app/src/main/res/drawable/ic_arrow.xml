@@ -14,9 +14,8 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">PokemonKotlin</string>
-    <string name="footer_retary">重试</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
-</resources>
+<vector android:height="24dp" android:tint="#FFFFFF"
+    android:viewportHeight="24" android:viewportWidth="24"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@android:color/white" android:pathData="M20,11H7.83l5.59,-5.59L12,4l-8,8 8,8 1.41,-1.41L7.83,13H20v-2z"/>
+</vector>

@@ -1,4 +1,4 @@
-package com.example.pokemon.viewmodel
+package com.example.pokemon.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.pokemon.data.PokemonFactory
+import com.example.pokemon.model.PokemonItemModel
 
 
 /**
@@ -18,6 +19,6 @@ class MainViewModel : ViewModel() {
 
     fun postOfData(): LiveData<PagingData<PokemonItemModel>>{
         return PokemonFactory.makePokemonRepository()
-            .featchPokemonList().cachedIn(viewModelScope).asLiveData()
+            .fetchPokemonList().cachedIn(viewModelScope).asLiveData()
     }
 }

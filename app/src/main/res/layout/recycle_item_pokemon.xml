@@ -7,7 +7,7 @@
 
         <variable
             name="pokemon"
-            type="com.example.pokemon.viewmodel.PokemonItemModel" />
+            type="com.example.pokemon.model.PokemonItemModel" />
 
     </data>
 

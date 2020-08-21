@@ -1,4 +1,4 @@
-package com.example.pokemon.viewmodel
+package com.example.pokemon.model
 
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel

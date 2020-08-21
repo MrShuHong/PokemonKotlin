@@ -6,7 +6,7 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pokemon.R
-import com.example.pokemon.ui.PokemonAdapter
+import com.example.pokemon.ui.main.PokemonAdapter
 
 
 /**

@@ -1,18 +1,20 @@
 package com.example.pokemon.data.repository
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.example.pokemon.data.entity.PokemonInfoEntity
+import com.example.pokemon.data.mapper.Mapper
 import com.example.pokemon.data.net.NetWorkModule
-import com.example.pokemon.viewmodel.PokemonItemModel
-import com.hi.dhl.pokemon.data.remote.PokemonService
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import com.example.pokemon.model.PokemonInfoModel
+import com.example.pokemon.model.PokemonItemModel
+import com.hi.dhl.pokemon.data.entity.PokemonEntity
+import com.hi.dhl.pokemon.data.remote.PokemonResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 
@@ -23,19 +25,35 @@ import kotlinx.coroutines.flow.map
  */
 class PokemonRepositoryImpl(
     val pagingConfig: PagingConfig,
+    val mapper2ItemMolde: Mapper<PokemonEntity, PokemonItemModel>,
+    val mapper2InfoModel: Mapper<PokemonInfoEntity, PokemonInfoModel>
 ) : Repository {
 
-    override fun featchPokemonList(): Flow<PagingData<PokemonItemModel>> {
+    override fun fetchPokemonList(): Flow<PagingData<PokemonItemModel>> {
 
-        var map = Pager(config = pagingConfig) {
+        return Pager(config = pagingConfig) {
             PokemonListDataSource()
         }.flow.map { pagingData ->
-            pagingData.map {
-                PokemonItemModel(name = it.name, url = it.url)
+            pagingData.map {entity ->
+                mapper2ItemMolde.map(entity)
             }
         }
+    }
 
-        return map
+    override suspend fun fetchPokemonInfo(name: String): Flow<PokemonResult<PokemonInfoModel>> {
+        return flow {
+            try{
+                var fetchPokemonInfo = NetWorkModule
+                    .providePokemonService()
+                    .fetchPokemonInfo(name)
+                var pokemonInfoEntity =
+                    PokemonInfoEntity.convert2PokemonInfoEntity(fetchPokemonInfo)
+                var infoModel = mapper2InfoModel.map(pokemonInfoEntity)
 
+                emit(PokemonResult.Success(infoModel))
+            }catch (e:Exception){
+                emit(PokemonResult.Failure(e))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }

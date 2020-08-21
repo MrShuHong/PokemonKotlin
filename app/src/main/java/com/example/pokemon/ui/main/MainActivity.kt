@@ -1,22 +1,16 @@
-package com.example.pokemon.ui
+package com.example.pokemon.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.pokemon.R
-import com.example.pokemon.data.net.NetWorkModule
 import com.example.pokemon.databinding.ActivityMainBinding
 import com.example.pokemon.ui.footer.FooterAdapter
-import com.example.pokemon.viewmodel.MainViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collectLatest
 
@@ -43,15 +37,23 @@ class MainActivity : AppCompatActivity() {
             mainViewModel = mMainViewModel
             lifecycleOwner = this@MainActivity
         }
-
         mMainViewModel.postOfData().observe(this, Observer {
             mPokemonAdapter.submitData(lifecycle,it)
+            // swipe_refresh.isEnabled = false
         })
+        swipe_refresh.setOnRefreshListener {
+            mMainViewModel.postOfData().observe(this, Observer {
+                mPokemonAdapter.submitData(lifecycle,it)
+                // swipe_refresh.isEnabled = false
+            })
+        }
 
         lifecycleScope.launchWhenCreated {
             mPokemonAdapter.loadStateFlow.collectLatest { state ->
                 Log.d("dsh", "onCreate: state = "+ state)
+               // state.prepend
                 swipe_refresh.isRefreshing = state.refresh is LoadState.Loading
+
             }
         }
 

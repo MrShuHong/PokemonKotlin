@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2020. hi-dhl (Jack Deng)
   ~
@@ -15,8 +16,9 @@
   -->
 
 <resources>
-    <string name="app_name">PokemonKotlin</string>
-    <string name="footer_retary">重试</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
+    <integer name="progress_animate_duration">1000</integer>
+    <integer name="porgress_default_value">40</integer>
+    <integer name="porgress_tpye_rect">0</integer>
+    <integer name="porgress_tpye_circle">1</integer>
+    <integer name="porgress_tpye_round_rect">2</integer>
 </resources>

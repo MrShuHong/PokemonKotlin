@@ -1,14 +1,13 @@
-package com.example.pokemon.ui
+package com.example.pokemon.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import com.example.databing.DataBindingViewHolder
 import com.example.pokemon.R
 import com.example.pokemon.databinding.RecycleItemPokemonBinding
-import com.example.pokemon.viewmodel.PokemonItemModel
+import com.example.pokemon.model.PokemonItemModel
 
 
 /**

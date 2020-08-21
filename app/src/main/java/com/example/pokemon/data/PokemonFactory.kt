@@ -1,6 +1,8 @@
 package com.example.pokemon.data
 
 import androidx.paging.PagingConfig
+import com.example.pokemon.data.mapper.Entity2ItemModelMapper
+import com.example.pokemon.data.mapper.InfoEntity2InfoModelMapper
 import com.example.pokemon.data.repository.PokemonRepositoryImpl
 import com.example.pokemon.data.repository.Repository
 import com.hi.dhl.pokemon.data.remote.PokemonService
@@ -16,6 +18,8 @@ object PokemonFactory {
     fun makePokemonRepository(): Repository =
         PokemonRepositoryImpl(
             pagingConfig,
+            Entity2ItemModelMapper(),
+            InfoEntity2InfoModelMapper()
         )
 
     val pagingConfig = PagingConfig(

@@ -1,9 +1,9 @@
 package com.example.pokemon.data.repository
 
-import androidx.paging.PagedList
 import androidx.paging.PagingData
-import com.example.pokemon.viewmodel.PokemonItemModel
-import io.reactivex.Observable
+import com.example.pokemon.model.PokemonInfoModel
+import com.example.pokemon.model.PokemonItemModel
+import com.hi.dhl.pokemon.data.remote.PokemonResult
 import kotlinx.coroutines.flow.Flow
 
 
@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.Flow
  */
 interface Repository {
 
-    fun featchPokemonList(): Flow<PagingData<PokemonItemModel>>
+    fun fetchPokemonList(): Flow<PagingData<PokemonItemModel>>
+
+    suspend fun fetchPokemonInfo(name: String): Flow<PokemonResult<PokemonInfoModel>>
 
 }

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="pokemonListModel"
+            type="com.example.pokemon.model.PokemonItemModel" />
+
+        <variable
+            name="detailModel"
+            type="com.example.pokemon.ui.detail.DetailViewModel" />
+
+        <variable
+            name="albumAdapter"
+            type="com.example.pokemon.ui.detail.AlbumAdapter" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        bind:bindLoading="@{detailModel.mLoading}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_light_teal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:padding="@dimen/space_3dp"
+                app:bindFinish="@{true}"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avator"
+                android:layout_width="@dimen/details_img_w_h"
+                android:layout_height="@dimen/details_img_w_h"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:src="@mipmap/default_poke"
+                android:translationZ="100dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:bindingAvator="@{pokemonListModel.url}" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_10dp"
+                android:layout_marginTop="180dp"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationZ="100dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avator"
+                app:spanCount="4"
+                bind:bindAdapter="@{albumAdapter}"
+                bind:bindData="@{detailModel.pokemon.albums}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:text="@{pokemonListModel.name}"
+                android:translationZ="100dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/album"
+                tools:text="pokemon" />
+
+            <com.hi.dhl.jprogressview.JProgressView
+                android:id="@+id/progressPH"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/margin_30dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginEnd="@dimen/margin_30dp"
+                android:translationZ="100dp"
+                app:bindProgressMaxValue="@{detailModel.pokemon.maxHp}"
+                app:bindProgressValue="@{detailModel.pokemon.hp}"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:progress_animate_duration="@integer/progress_animate_duration"
+                app:progress_color="@color/color_progress_1"
+                app:progress_color_background="@color/color_progress_bg"
+                app:progress_paint_bg_width="@dimen/progress_paint_bg_width"
+                app:progress_paint_value_width="@dimen/progress_paint_bg_width"
+                app:progress_text_color="@android:color/black"
+                app:progress_text_size="@dimen/text_size_12sp"
+                app:progress_type="@integer/porgress_tpye_round_rect" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/hp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:translationZ="100dp"
+                android:text="@{detailModel.pokemon.generatetHP}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressPH"
+                tools:text="Weight" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weight"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:text="@{detailModel.pokemon.generatetWeight}"
+                android:textColor="@android:color/black"
+                android:textSize="21sp"
+                android:translationZ="100dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/height"
+                app:layout_constraintTop_toBottomOf="@+id/progressPH"
+                tools:text="Weight" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/height"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{detailModel.pokemon.generateHeight}"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:textColor="@android:color/black"
+                android:textSize="21sp"
+                android:translationZ="100dp"
+                app:layout_constraintLeft_toRightOf="@+id/weight"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressPH"
+                tools:text="Weight" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:text="@string/weight"
+                android:textColor="@android:color/black"
+                android:translationZ="100dp"
+                app:layout_constraintLeft_toLeftOf="@+id/weight"
+                app:layout_constraintRight_toRightOf="@+id/weight"
+                app:layout_constraintTop_toBottomOf="@+id/weight"
+                tools:text="Weight" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:textColor="@android:color/black"
+                android:translationZ="100dp"
+                android:text="@string/height"
+                app:layout_constraintLeft_toLeftOf="@+id/height"
+                app:layout_constraintRight_toRightOf="@+id/height"
+                app:layout_constraintTop_toBottomOf="@+id/height"
+                tools:text="Weight" />
+
+
+            <include
+                android:id="@+id/include_progress"
+                layout="@layout/include_details_progress"
+                app:viewModel="@{detailModel}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
